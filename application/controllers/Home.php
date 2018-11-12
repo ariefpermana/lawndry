@@ -78,8 +78,14 @@ class Home extends MY_Controller
 		$total_nilai = $this->Review_m->getTotal($id)[0];
 
 		$count_nilai = $this->Review_m->getCountNilai($id);
+		if(empty($total_nilai['nilai']) && empty($count_nilai))
+		{
+		
+			$data['nilai']	= 0;
 
-		$data['nilai']	= $total_nilai['nilai']/$count_nilai;
+		}else{
+			$data['nilai']	= $total_nilai['nilai']/$count_nilai;
+		}
 
 		if(!empty($this->session->userdata()))
 		{
