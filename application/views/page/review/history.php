@@ -34,10 +34,10 @@
             </thead>
             <tbody>
             <?php 
-            $i = 1;
+            $n = 1;
             if($review) : foreach($review as $key) : ?>
             <tr>
-              <td><?php echo $i++; ?></td>
+              <td><?php echo $n++; ?></td>
               <td><?php echo $key->tanggal_komentar; ?></td>
               <td><?php echo $key->nama_laundry; ?></td>
               <td>
