@@ -481,7 +481,7 @@ class Order extends MY_Controller
 
 		$data['order_history'] = 'active';
 
-		$data['orders'] = $this->Order_m->getHistory(15);
+		$data['orders'] = $this->Order_m->getHistory("'15','2'");
 
 		$this->load->view('layout', $data);
 	}
