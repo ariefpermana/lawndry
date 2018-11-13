@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2018 at 03:36 AM
+-- Generation Time: Nov 13, 2018 at 10:53 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -39,6 +39,29 @@ CREATE TABLE `detail_merchant` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `komentar`
+--
+
+CREATE TABLE `komentar` (
+  `id` int(11) NOT NULL,
+  `id_laundry` varchar(4) NOT NULL,
+  `nama_pelanggan` varchar(50) NOT NULL,
+  `tanggal_komentar` date NOT NULL,
+  `komentar` varchar(255) NOT NULL,
+  `nilai` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `komentar`
+--
+
+INSERT INTO `komentar` (`id`, `id_laundry`, `nama_pelanggan`, `tanggal_komentar`, `komentar`, `nilai`) VALUES
+(2, '001', 'Arief Permana', '2018-11-12', 'sangat puas dengan layanannya, tepat waktu dan hasil cucian nya bersih', 5),
+(3, '001', 'Arief Permana', '2018-11-12', 'sangat puas dengan layanannya, tepat waktu dan hasil cucian nya bersih', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `laundry`
 --
 
@@ -49,7 +72,9 @@ CREATE TABLE `laundry` (
   `nama_laundry` varchar(100) NOT NULL,
   `logo` varchar(50) NOT NULL,
   `alamat` varchar(150) NOT NULL,
+  `kelurahan` varchar(50) NOT NULL,
   `no_hp` varchar(13) NOT NULL,
+  `no_rek` varchar(30) NOT NULL,
   `deskripsi` varchar(255) NOT NULL,
   `syarat_ketentuan` varchar(2000) NOT NULL,
   `status` varchar(2) NOT NULL
@@ -59,11 +84,11 @@ CREATE TABLE `laundry` (
 -- Dumping data for table `laundry`
 --
 
-INSERT INTO `laundry` (`id`, `nama_administrator`, `email`, `nama_laundry`, `logo`, `alamat`, `no_hp`, `deskripsi`, `syarat_ketentuan`, `status`) VALUES
-('001', 'Eben Laundry', 'eben@gmail.com', 'Eben Laundry', '01-thumbnail5.jpg', 'Jl. Batu Raya No.12,  RT.4/RW.7, Menteng Atas, Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12960', '09129078798', 'Laundry jemput antar memudahkan para pelanggan untuk tetap nyaman di rumah sampai cucian bersih dan siap dipakai. Tidak Repot dan efisien.', '1.	Cuci kiloan diproses langsung dengan mesin cuci memakai aturan normal cycle dan dikeringkan dengan tumble dryer memakai aturan normal heat.\r\n2.	Kami tidak bertanggung jawab atas kerusakan pakaian yang diakibatkan oleh mesin. Apabila bahan pakaian Anda membutuhkan penanganan khusus, harap memakai jasa cuci satuan kami.\r\n3.	Harap menghitung sendiri dan infokan kepada admin tentang jumlah pakaian Anda sebelum kami proses. Apabila tidak dihitung dan diinformasikan, kami tidak bertanggung jawab atas segala kehilangan yang ada. Apabila sudah dihitung dan ada yang hilang, maka kami akan memberikan diskon 10% untuk transaksi selanjutnya.\r\n4.	Kerusakan atau kehilangan cuci satuan akan kami ganti rugi sebesar 3 kali lipat dari transaksi dan kami berhak mengambil pakaian yang rusak tersebut.\r\n5.	Klaim hanya berlaku maksimal 3 jam setelah pengambilan laundry.\r\n6.	Periksa saku sebelum ke binatu. Kami tidak bertanggung jawab atas barang yang hilang karena tertinggal di dalam cucian.\r\n7.	Cucian yang tidak diambil dalam waktu lebih dari 30 hari di luar tanggung jawab kami. Lebih dari 60 hari maka akan kami donasikan kepada yang membutuhkan.\r\n8.	Cucian yang diambil harus disertai struk dan harus sudah dilunasi. Karyawan kami berhak untuk tidak memberikan cucian apabila customer tidak membawa struk atau belum melunasi pembayaran untuk menghindari hal-hal yang tidak diinginkan.\r\n9.	Transaksi Anda gratis apabila karyawan kami tidak memberikan struk print berlogo COECI.\r\n10.	Delivery hanya untuk lokasi berjarak maksimal 3 kilometer dari lokasi COECI dengan minimal order Rp. 70.000,-. Delivery akan ditiadakan apabila kurir sedang berhalangan masuk kerja.', '1'),
-('038', 'Shaba Laundry', 'Shaba@gmail.com', 'Shaba Laundry', '02-thumbnail1.jpg', 'Jl. Taman Setia Budi I No.5, RT.2/RW.RW, Kuningan, Setia Budi, Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12910 ', '012081298987', 'Laundry jemput antar memudahkan para pelanggan untuk tetap nyaman di rumah sampai cucian bersih dan siap dipakai. Tidak Repot dan efisien.', '1.	Cuci kiloan diproses langsung dengan mesin cuci memakai aturan normal cycle dan dikeringkan dengan tumble dryer memakai aturan normal heat.\r\n2.	Kami tidak bertanggung jawab atas kerusakan pakaian yang diakibatkan oleh mesin. Apabila bahan pakaian Anda membutuhkan penanganan khusus, harap memakai jasa cuci satuan kami.\r\n3.	Harap menghitung sendiri dan infokan kepada admin tentang jumlah pakaian Anda sebelum kami proses. Apabila tidak dihitung dan diinformasikan, kami tidak bertanggung jawab atas segala kehilangan yang ada. Apabila sudah dihitung dan ada yang hilang, maka kami akan memberikan diskon 10% untuk transaksi selanjutnya.\r\n4.	Kerusakan atau kehilangan cuci satuan akan kami ganti rugi sebesar 3 kali lipat dari transaksi dan kami berhak mengambil pakaian yang rusak tersebut.\r\n5.	Klaim hanya berlaku maksimal 3 jam setelah pengambilan laundry.\r\n6.	Periksa saku sebelum ke binatu. Kami tidak bertanggung jawab atas barang yang hilang karena tertinggal di dalam cucian.\r\n7.	Cucian yang tidak diambil dalam waktu lebih dari 30 hari di luar tanggung jawab kami. Lebih dari 60 hari maka akan kami donasikan kepada yang membutuhkan.\r\n8.	Cucian yang diambil harus disertai struk dan harus sudah dilunasi. Karyawan kami berhak untuk tidak memberikan cucian apabila customer tidak membawa struk atau belum melunasi pembayaran untuk menghindari hal-hal yang tidak diinginkan.\r\n9.	Transaksi Anda gratis apabila karyawan kami tidak memberikan struk print berlogo COECI.\r\n10.	Delivery hanya untuk lokasi berjarak maksimal 3 kilometer dari lokasi COECI dengan minimal order Rp. 70.000,-. Delivery akan ditiadakan apabila kurir sedang berhalangan masuk kerja.', '1'),
-('397', 'Laundrette', 'laundrette@gmail.com', 'Laundrette', '04-thumbnail.jpg', 'Jl. Mega Kuningan Barat No.3, RT.1/RW.2, Kuningan, Kuningan Tim., Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12950 ', '092197281823', 'Laundry jemput antar memudahkan para pelanggan untuk tetap nyaman di rumah sampai cucian bersih dan siap dipakai. Tidak Repot dan efisien.', '1.	Cuci kiloan diproses langsung dengan mesin cuci memakai aturan normal cycle dan dikeringkan dengan tumble dryer memakai aturan normal heat.\r\n2.	Kami tidak bertanggung jawab atas kerusakan pakaian yang diakibatkan oleh mesin. Apabila bahan pakaian Anda membutuhkan penanganan khusus, harap memakai jasa cuci satuan kami.\r\n3.	Harap menghitung sendiri dan infokan kepada admin tentang jumlah pakaian Anda sebelum kami proses. Apabila tidak dihitung dan diinformasikan, kami tidak bertanggung jawab atas segala kehilangan yang ada. Apabila sudah dihitung dan ada yang hilang, maka kami akan memberikan diskon 10% untuk transaksi selanjutnya.\r\n4.	Kerusakan atau kehilangan cuci satuan akan kami ganti rugi sebesar 3 kali lipat dari transaksi dan kami berhak mengambil pakaian yang rusak tersebut.\r\n5.	Klaim hanya berlaku maksimal 3 jam setelah pengambilan laundry.\r\n6.	Periksa saku sebelum ke binatu. Kami tidak bertanggung jawab atas barang yang hilang karena tertinggal di dalam cucian.\r\n7.	Cucian yang tidak diambil dalam waktu lebih dari 30 hari di luar tanggung jawab kami. Lebih dari 60 hari maka akan kami donasikan kepada yang membutuhkan.\r\n8.	Cucian yang diambil harus disertai struk dan harus sudah dilunasi. Karyawan kami berhak untuk tidak memberikan cucian apabila customer tidak membawa struk atau belum melunasi pembayaran untuk menghindari hal-hal yang tidak diinginkan.\r\n9.	Transaksi Anda gratis apabila karyawan kami tidak memberikan struk print berlogo COECI.\r\n10.	Delivery hanya untuk lokasi berjarak maksimal 3 kilometer dari lokasi COECI dengan minimal order Rp. 70.000,-. Delivery akan ditiadakan apabila kurir sedang berhalangan masuk kerja.', '1'),
-('817', 'Aira Laundry', 'aira@gmail.com', 'Aira Laundry', '', 'Jl. Menteng Wadas Utara No. 22, RT.14/RW.7, Ps. Manggis, Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12970', '01281832173', '', '', '');
+INSERT INTO `laundry` (`id`, `nama_administrator`, `email`, `nama_laundry`, `logo`, `alamat`, `kelurahan`, `no_hp`, `no_rek`, `deskripsi`, `syarat_ketentuan`, `status`) VALUES
+('001', 'Eben Laundry', 'eben@gmail.com', 'Eben Laundry', '01-thumbnail5.jpg', 'Jl. Batu Raya No.12,  RT.4/RW.7, Menteng Atas, Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12960    ', 'Benhill', '09129078798', '21313131313', 'Laundry jemput antar memudahkan para pelanggan untuk tetap nyaman di rumah sampai cucian bersih dan siap dipakai. Tidak Repot dan efisien.', '1.	Cuci kiloan diproses langsung dengan mesin cuci memakai aturan normal cycle dan dikeringkan dengan tumble dryer memakai aturan normal heat.\r\n2.	Kami tidak bertanggung jawab atas kerusakan pakaian yang diakibatkan oleh mesin. Apabila bahan pakaian Anda membutuhkan penanganan khusus, harap memakai jasa cuci satuan kami.\r\n3.	Harap menghitung sendiri dan infokan kepada admin tentang jumlah pakaian Anda sebelum kami proses. Apabila tidak dihitung dan diinformasikan, kami tidak bertanggung jawab atas segala kehilangan yang ada. Apabila sudah dihitung dan ada yang hilang, maka kami akan memberikan diskon 10% untuk transaksi selanjutnya.\r\n4.	Kerusakan atau kehilangan cuci satuan akan kami ganti rugi sebesar 3 kali lipat dari transaksi dan kami berhak mengambil pakaian yang rusak tersebut.\r\n5.	Klaim hanya berlaku maksimal 3 jam setelah pengambilan laundry.\r\n6.	Periksa saku sebelum ke binatu. Kami tidak bertanggung jawab atas barang yang hilang karena tertinggal di dalam cucian.\r\n7.	Cucian yang tidak diambil dalam waktu lebih dari 30 hari di luar tanggung jawab kami. Lebih dari 60 hari maka akan kami donasikan kepada yang membutuhkan.\r\n8.	Cucian yang diambil harus disertai struk dan harus sudah dilunasi. Karyawan kami berhak untuk tidak memberikan cucian apabila customer tidak membawa struk atau belum melunasi pembayaran untuk menghindari hal-hal yang tidak diinginkan.\r\n9.	Transaksi Anda gratis apabila karyawan kami tidak memberikan struk print berlogo COECI.\r\n10.	Delivery hanya untuk lokasi berjarak maksimal 3 kilometer dari lokasi COECI dengan minimal order Rp. 70.000,-. Delivery akan ditiadakan apabila kurir sedang berhalangan masuk kerja.', '1'),
+('038', 'Shaba Laundry', 'Shaba@gmail.com', 'Shaba Laundry', '02-thumbnail1.jpg', 'Jl. Taman Setia Budi I No.5, RT.2/RW.RW, Kuningan, Setia Budi, Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12910 ', '', '012081298987', '', 'Laundry jemput antar memudahkan para pelanggan untuk tetap nyaman di rumah sampai cucian bersih dan siap dipakai. Tidak Repot dan efisien.', '1.	Cuci kiloan diproses langsung dengan mesin cuci memakai aturan normal cycle dan dikeringkan dengan tumble dryer memakai aturan normal heat.\r\n2.	Kami tidak bertanggung jawab atas kerusakan pakaian yang diakibatkan oleh mesin. Apabila bahan pakaian Anda membutuhkan penanganan khusus, harap memakai jasa cuci satuan kami.\r\n3.	Harap menghitung sendiri dan infokan kepada admin tentang jumlah pakaian Anda sebelum kami proses. Apabila tidak dihitung dan diinformasikan, kami tidak bertanggung jawab atas segala kehilangan yang ada. Apabila sudah dihitung dan ada yang hilang, maka kami akan memberikan diskon 10% untuk transaksi selanjutnya.\r\n4.	Kerusakan atau kehilangan cuci satuan akan kami ganti rugi sebesar 3 kali lipat dari transaksi dan kami berhak mengambil pakaian yang rusak tersebut.\r\n5.	Klaim hanya berlaku maksimal 3 jam setelah pengambilan laundry.\r\n6.	Periksa saku sebelum ke binatu. Kami tidak bertanggung jawab atas barang yang hilang karena tertinggal di dalam cucian.\r\n7.	Cucian yang tidak diambil dalam waktu lebih dari 30 hari di luar tanggung jawab kami. Lebih dari 60 hari maka akan kami donasikan kepada yang membutuhkan.\r\n8.	Cucian yang diambil harus disertai struk dan harus sudah dilunasi. Karyawan kami berhak untuk tidak memberikan cucian apabila customer tidak membawa struk atau belum melunasi pembayaran untuk menghindari hal-hal yang tidak diinginkan.\r\n9.	Transaksi Anda gratis apabila karyawan kami tidak memberikan struk print berlogo COECI.\r\n10.	Delivery hanya untuk lokasi berjarak maksimal 3 kilometer dari lokasi COECI dengan minimal order Rp. 70.000,-. Delivery akan ditiadakan apabila kurir sedang berhalangan masuk kerja.', '1'),
+('397', 'Laundrette', 'laundrette@gmail.com', 'Laundrette', '04-thumbnail.jpg', 'Jl. Mega Kuningan Barat No.3, RT.1/RW.2, Kuningan, Kuningan Tim., Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12950 ', '', '092197281823', '', 'Laundry jemput antar memudahkan para pelanggan untuk tetap nyaman di rumah sampai cucian bersih dan siap dipakai. Tidak Repot dan efisien.', '1.	Cuci kiloan diproses langsung dengan mesin cuci memakai aturan normal cycle dan dikeringkan dengan tumble dryer memakai aturan normal heat.\r\n2.	Kami tidak bertanggung jawab atas kerusakan pakaian yang diakibatkan oleh mesin. Apabila bahan pakaian Anda membutuhkan penanganan khusus, harap memakai jasa cuci satuan kami.\r\n3.	Harap menghitung sendiri dan infokan kepada admin tentang jumlah pakaian Anda sebelum kami proses. Apabila tidak dihitung dan diinformasikan, kami tidak bertanggung jawab atas segala kehilangan yang ada. Apabila sudah dihitung dan ada yang hilang, maka kami akan memberikan diskon 10% untuk transaksi selanjutnya.\r\n4.	Kerusakan atau kehilangan cuci satuan akan kami ganti rugi sebesar 3 kali lipat dari transaksi dan kami berhak mengambil pakaian yang rusak tersebut.\r\n5.	Klaim hanya berlaku maksimal 3 jam setelah pengambilan laundry.\r\n6.	Periksa saku sebelum ke binatu. Kami tidak bertanggung jawab atas barang yang hilang karena tertinggal di dalam cucian.\r\n7.	Cucian yang tidak diambil dalam waktu lebih dari 30 hari di luar tanggung jawab kami. Lebih dari 60 hari maka akan kami donasikan kepada yang membutuhkan.\r\n8.	Cucian yang diambil harus disertai struk dan harus sudah dilunasi. Karyawan kami berhak untuk tidak memberikan cucian apabila customer tidak membawa struk atau belum melunasi pembayaran untuk menghindari hal-hal yang tidak diinginkan.\r\n9.	Transaksi Anda gratis apabila karyawan kami tidak memberikan struk print berlogo COECI.\r\n10.	Delivery hanya untuk lokasi berjarak maksimal 3 kilometer dari lokasi COECI dengan minimal order Rp. 70.000,-. Delivery akan ditiadakan apabila kurir sedang berhalangan masuk kerja.', '1'),
+('817', 'Aira Laundry', 'aira@gmail.com', 'Aira Laundry', '', 'Jl. Menteng Wadas Utara No. 22, RT.14/RW.7, Ps. Manggis, Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12970', '', '01281832173', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -88,7 +113,8 @@ INSERT INTO `layanan` (`id`, `id_laundry`, `jenis_layanan`, `nama_layanan`, `bia
 (2, '001', 'Kiloan', 'Cuci Komplit Kilat – Laundry 1 Hari Selesai', 15000),
 (3, '001', 'Kiloan', 'Cuci Komplit 5 Jam – Laundry Express 5 Jam Selesai', 20000),
 (4, '001', 'Satuan', 'Baju Hangat / Sweater', 20000),
-(5, '001', 'Satuan', 'Gaun/Baju Pengantin', 100000);
+(5, '001', 'Satuan', 'Gaun/Baju Pengantin', 100000),
+(6, '038', 'Kiloan', 'Cuci Komplit Reguler (2 HARI)', 8000);
 
 -- --------------------------------------------------------
 
@@ -99,7 +125,6 @@ INSERT INTO `layanan` (`id`, `id_laundry`, `jenis_layanan`, `nama_layanan`, `bia
 CREATE TABLE `order` (
   `id` varchar(50) NOT NULL,
   `id_pelanggan` varchar(10) NOT NULL,
-  `id_pembayaran` varchar(20) NOT NULL,
   `total_harga` int(10) NOT NULL,
   `alamat_penjemputan` varchar(100) NOT NULL,
   `tanggal_transaksi` date NOT NULL
@@ -109,10 +134,11 @@ CREATE TABLE `order` (
 -- Dumping data for table `order`
 --
 
-INSERT INTO `order` (`id`, `id_pelanggan`, `id_pembayaran`, `total_harga`, `alamat_penjemputan`, `tanggal_transaksi`) VALUES
-('19520181106557', '195', '19520181106557827', 42000, 'jl. Anjelin 1 B-31/50 Pd. Indah rt/rw 005/008 Kutabumi, pasarkemis', '2018-11-06'),
-('19520181106109', '195', '0', 42000, 'jl. Anjelin 1 B-31/50 Pd. Indah rt/rw 005/008 Kutabumi, pasarkemis', '2018-11-06'),
-('19520181106387', '195', '19520181106387314', 133000, 'jl. Anjelin 1 B-31/50 Pd. Indah rt/rw 005/008 Kutabumi, pasarkemis', '2018-11-06');
+INSERT INTO `order` (`id`, `id_pelanggan`, `total_harga`, `alamat_penjemputan`, `tanggal_transaksi`) VALUES
+('19520181106557', '195', 42000, 'jl. Anjelin 1 B-31/50 Pd. Indah rt/rw 005/008 Kutabumi, pasarkemis', '2018-11-06'),
+('19520181106109', '195', 42000, 'jl. Anjelin 1 B-31/50 Pd. Indah rt/rw 005/008 Kutabumi, pasarkemis', '2018-11-06'),
+('19520181106387', '195', 133000, 'jl. Anjelin 1 B-31/50 Pd. Indah rt/rw 005/008 Kutabumi, pasarkemis', '2018-11-06'),
+('19520181111871', '195', 64000, 'jl. Anjelin 1 B-31/50 Pd. Indah rt/rw 005/008 Kutabumi, pasarkemis', '2018-11-11');
 
 -- --------------------------------------------------------
 
@@ -124,6 +150,7 @@ CREATE TABLE `order_detail` (
   `id` int(11) NOT NULL,
   `id_order` varchar(50) NOT NULL,
   `id_laundry` varchar(6) NOT NULL,
+  `id_pembayaran` varchar(20) NOT NULL,
   `jenis_layanan` varchar(10) NOT NULL,
   `nama_layanan` varchar(50) NOT NULL,
   `harga` int(8) NOT NULL,
@@ -139,11 +166,13 @@ CREATE TABLE `order_detail` (
 -- Dumping data for table `order_detail`
 --
 
-INSERT INTO `order_detail` (`id`, `id_order`, `id_laundry`, `jenis_layanan`, `nama_layanan`, `harga`, `berat_cucian`, `jumlah_satuan`, `subtotal`, `tanggal_penjemputan`, `tanggal_pengembalian`, `id_status_order`) VALUES
-(5, '19520181106557', '001', 'Kiloan', 'Cuci Komplit 5 Jam Laundry Express 5 Jam Selesai', 21000, 2, 0, 42000, '0000-00-00', '0000-00-00', '2'),
-(6, '19520181106109', '001', 'Satuan', 'Baju Hangat Sweater', 21000, 0, 2, 42000, '0000-00-00', '0000-00-00', '1'),
-(7, '19520181106387', '001', 'Kiloan', 'Cuci Komplit Kilat Laundry 1 Hari Selesai', 16000, 2, 0, 32000, '0000-00-00', '0000-00-00', '13'),
-(8, '19520181106387', '001', 'Satuan', 'Gaun Baju Pengantin', 101000, 0, 1, 101000, '2018-11-10', '2018-11-15', '12');
+INSERT INTO `order_detail` (`id`, `id_order`, `id_laundry`, `id_pembayaran`, `jenis_layanan`, `nama_layanan`, `harga`, `berat_cucian`, `jumlah_satuan`, `subtotal`, `tanggal_penjemputan`, `tanggal_pengembalian`, `id_status_order`) VALUES
+(5, '19520181106557', '001', '', 'Kiloan', 'Cuci Komplit 5 Jam Laundry Express 5 Jam Selesai', 21000, 2, 0, 42000, '0000-00-00', '0000-00-00', '2'),
+(6, '19520181106109', '001', '', 'Satuan', 'Baju Hangat Sweater', 21000, 0, 2, 42000, '0000-00-00', '0000-00-00', '3'),
+(7, '19520181106387', '001', '', 'Kiloan', 'Cuci Komplit Kilat Laundry 1 Hari Selesai', 16000, 2, 0, 32000, '0000-00-00', '0000-00-00', '13'),
+(8, '19520181106387', '001', '', 'Satuan', 'Gaun Baju Pengantin', 101000, 0, 1, 101000, '2018-11-10', '2018-11-15', '12'),
+(9, '19520181111871', '001', '195201811118719213', 'Kiloan', 'Cuci Komplit Reguler2 HARI ', 8000, 4, 25, 32000, '2018-11-13', '2018-11-14', '15'),
+(10, '19520181111871', '038', '', 'Kiloan', 'Cuci Komplit Reguler2 HARI ', 8000, 2, 10, 16000, '0000-00-00', '0000-00-00', '1');
 
 -- --------------------------------------------------------
 
@@ -163,7 +192,8 @@ CREATE TABLE `pembayaran` (
 
 INSERT INTO `pembayaran` (`id`, `nama_rek_pengirim`, `bukti_pembayaran`) VALUES
 ('19520181106387314', 'Arief Permana', '06-full.jpg'),
-('19520181106557827', 'Arief Permana', '03-full5.jpg');
+('19520181106557827', 'Arief Permana', '03-full5.jpg'),
+('195201811118719213', 'Arief Permana', 'windows10hero1.jpg');
 
 -- --------------------------------------------------------
 
@@ -181,19 +211,21 @@ CREATE TABLE `status_order` (
 --
 
 INSERT INTO `status_order` (`id`, `status`) VALUES
-(1, 'Menunggu Konfirmasi Pembayaran'),
-(2, 'Menunggu Verifikasi Pembayaran'),
-(3, 'Pembayaran Terverifikasi'),
+(1, 'Menunggu Verifikasi Order'),
+(2, 'Order Di Batalkan'),
+(3, 'Order Terverifikasi'),
 (4, 'Menuggu Penjemputan Cucian ke Tempat Tujuan'),
 (5, 'Cucian Sudah diambil oleh Kurir Laundry'),
 (6, 'Cucian Sampai di Tempat Laundry'),
 (7, 'Cucian Sedang Diproses'),
-(8, 'Cucian Selesai Di Laundry'),
-(9, 'Menunggu Penjemputan Kurir ke Tempat Tujuan  Pelanggan'),
-(10, 'Pakaian Sudah Diambil dan Siap Untuk Diantar ke Alamat Tujuan Pelanggan'),
-(11, 'Pakaian Sedang Dalam Perjalanan Kurir'),
-(12, 'Pakaian Sudah Diterima Pelanggan'),
-(13, 'Orderan Selesai');
+(8, 'Cucian Selesai Di Laundry & Menunggu Konfirmasi Pembayaran'),
+(9, 'Pembayaran Dikonfirmasi'),
+(10, 'Pembayaran Terverikasi'),
+(11, 'Menunggu Penjemputan Kurir ke Tempat Tujuan  Pelanggan'),
+(12, 'Pakaian Sudah Diambil dan Siap Untuk Diantar ke Alamat Tujuan Pelanggan'),
+(13, 'Pakaian Sedang Dalam Perjalanan Kurir'),
+(14, 'Pakaian Sudah Diterima Pelanggan'),
+(15, 'Orderan Selesai');
 
 -- --------------------------------------------------------
 
@@ -230,6 +262,12 @@ INSERT INTO `user` (`id`, `username`, `nama`, `password`, `email`, `handphone`, 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `komentar`
+--
+ALTER TABLE `komentar`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `laundry`
@@ -272,15 +310,20 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `komentar`
+--
+ALTER TABLE `komentar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `layanan`
 --
 ALTER TABLE `layanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `status_order`
 --
