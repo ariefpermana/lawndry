@@ -26,6 +26,17 @@ class Order_m extends CI_Model
 			$this->db->where('od.id_status_order', $status);
 			$this->db->order_by('o.tanggal_transaksi DESC');
 			$query = $this->db->get('order as o')->result();
+
+			if(empty($query))
+			{
+				$this->db->select('*, od.id as id');
+				$this->db->join('order_detail as od','od.id_order = o.id','left');
+				$this->db->join('status_order as s','s.id = od.id_status_order','left');
+				$this->db->where('od.id_laundry',$id_order);
+				$this->db->where('od.id_status_order', $status);
+				$this->db->order_by('o.tanggal_transaksi DESC');
+				$query = $this->db->get('order as o')->result();
+			}
 		}
 		elseif($flag == 'detail')
 		{

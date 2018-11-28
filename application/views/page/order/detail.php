@@ -27,7 +27,7 @@
               <th>Jumlah Satuan</th>
               <th>Harga</th>
               <th>Total Harga</th>
-              <th>Tangga Penjemputan</th>
+              <th>Tanggal Penjemputan</th>
               <th>Tanggal Pengembalian</th>
               <th>Status Order</th>
               <th>Action</th>
