@@ -165,6 +165,45 @@
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-primary"><?php echo $count_status; ?></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header" style="background-color:#37d7c5;">You have <?php echo $count_status; ?> notifications status order</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <?php if($status_history) : foreach($status_history as $stat => $value) : ?>
+                  <li style="background-color:#fbe33780;">
+                    <a href="#">
+                      <i class="fa fa-warning text-blue"></button></i> 
+                      Order #<?php echo $value->id_order; ?>
+                    </a>
+                  </li>
+                  <li style="background-color:#f3bf57cc;">
+                    <i>
+                      <div class="row" style="padding:10px;">
+                        <div class="col-md-12">
+                          <?php echo $value->status; ?>
+                        </div>
+                      </div>
+                    </i>
+                  
+                  </li>
+                <?php endforeach; else : ?>
+                  <li>
+                  <a>
+                    <p><i>empty notification</i></p>
+                  </a>
+                  </li>
+                <?php endif; ?>
+                </ul>
+              </li>
+              <li class="footer"><a href="#"><!-- View all --></a></li>
+            </ul>
+          </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -5,7 +5,28 @@
 */
 class Home extends MY_Controller
 {
-	
+	protected $_status;
+	protected $_data_status;
+
+	function __construct()
+	{
+		parent::__construct();
+
+		$kode = $this->session->userdata('kode');
+
+		//====================Status Order ====================
+		if(!empty($this->Order_m->getStatusHistory($kode)))
+		{
+		 	$tot_status = count($this->Order_m->getStatusHistory($kode)); 
+		 	$data_status = $this->Order_m->getStatusHistory($kode);
+		}else{
+			$tot_status = "0";
+		}
+
+		$this->_data_status = $data_status;
+		$this->_status = $tot_status;
+	}
+
 	public function index()
 	{
 		$data['content'] = 'page/home/index';
@@ -41,6 +62,9 @@ class Home extends MY_Controller
 		$data['orders'] = count($dataOrder);
 
 		$orderStatus = $this->Order_m->getOrderStatus(1,$kode);
+
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['order_status'] = count($orderStatus);
 
@@ -78,13 +102,14 @@ class Home extends MY_Controller
 		$total_nilai = $this->Review_m->getTotal($id)[0];
 
 		$count_nilai = $this->Review_m->getCountNilai($id);
+
 		if(empty($total_nilai['nilai']) && empty($count_nilai))
 		{
 		
 			$data['nilai']	= 0;
 
 		}else{
-			$data['nilai']	= $total_nilai['nilai']/$count_nilai;
+			$data['nilai']	= round($total_nilai['nilai']/$count_nilai);
 		}
 
 		if(!empty($this->session->userdata()))

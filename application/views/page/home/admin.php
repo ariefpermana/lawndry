@@ -42,6 +42,20 @@
       <a href="<?php echo site_url('order/detail/'.$this->session->userdata('kode').'/8'); ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
     </div>
   </div>
+  <!-- <div class="col-lg-3 col-xs-6"> -->
+    <!-- small box -->
+    <!--<div class="small-box bg-red">
+      <div class="inner">
+        <h3><?php //echo $status;?> <!--</h3> -->
+
+        <!--<p>Status Order</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-spinner"></i>
+      </div>-->
+      <!--<a href="<?php //echo site_url('order/status'); ?> <!--" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>-->
   <?php } ?>
 
   <?php if($this->session->userdata('kategori') == 1) { ?>

@@ -107,7 +107,7 @@
         <div class="row text-center">
           <div class="col-lg-12 text-center">
             <p>
-              <?php echo $merchant['syarat_ketentuan']; ?>
+              <?php echo nl2br($merchant['syarat_ketentuan']); ?>
             </p>
           </div>
         </div>

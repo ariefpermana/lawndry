@@ -5,6 +5,28 @@
 */
 class User extends MY_Controller
 {
+	protected $_status;
+	protected $_data_status;
+
+	function __construct()
+	{
+		parent::__construct();
+
+		$kode = $this->session->userdata('kode');
+
+		//====================Status Order ====================
+		if(!empty($this->Order_m->getStatusHistory($kode)))
+		{
+		 	$tot_status = count($this->Order_m->getStatusHistory($kode)); 
+		 	$data_status = $this->Order_m->getStatusHistory($kode);
+
+		 	$this->_data_status = $data_status;
+		}else{
+			$tot_status = "0";
+		}
+
+		$this->_status = $tot_status;
+	}
 	
 	public function login()
 	{
@@ -119,6 +141,8 @@ class User extends MY_Controller
 		$data['content'] = 'page/user/pelanggan';
 
 		$data['active_pelanggan'] = 'active';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$uri = $this->uri->segment(3);
 
@@ -184,6 +208,8 @@ class User extends MY_Controller
 		$data['content'] = 'page/user/merchant';
 
 		$data['active_merchant'] = 'active';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['user'] = $this->User_m->getAllUser(1);
 
@@ -237,7 +263,9 @@ class User extends MY_Controller
 		if(!$this->session->userdata('id')) redirect('user/login');
 
 		$data['content'] = 'page/user/add_merchant';	
-		
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
+
 		$this->form_validation->set_rules('username','Username','min_length[5]|max_length[50]');
 		$this->form_validation->set_rules('nama','Nama','min_length[7]|max_length[50]');
 		$this->form_validation->set_rules('hp','No. Handphone','min_length[10]|max_length[13]');
@@ -306,6 +334,8 @@ class User extends MY_Controller
 		if(!$this->session->userdata('id')) redirect('user/login');
 
 		$data['content'] = 'page/user/edit';	
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['user'] = $this->User_m->getByKode($this->session->userdata('kode'));
 		$uri = $this->session->userdata('uri');
@@ -361,6 +391,8 @@ class User extends MY_Controller
 	public function reset_password()
 	{
 		if(!$this->session->userdata('id')) redirect('user/login');
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['content'] = 'page/user/reset_password';
 
@@ -395,7 +427,9 @@ class User extends MY_Controller
 	{
 		if(!$this->session->userdata('id')) redirect(base_url());
 
-		
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
+
 		$uri = $this->session->userdata('uri');
 
 		$kode = $this->session->userdata('kode');

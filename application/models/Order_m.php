@@ -161,6 +161,25 @@ class Order_m extends CI_Model
 			$this->db->order_by('o.tanggal_transaksi DESC');
 			return $query = $this->db->get('order as o')->result();
 	}
+
+	public function getStatusHistory($kode='')
+	{
+		$this->db->select('h.*, od.id_order,s.status');
+			$this->db->join('order_detail as od','od.id = h.id_detail_order','left');
+			$this->db->join('status_order as s','s.id = h.id_status_order','left');
+			$this->db->where('h.kode_user',$kode);
+			$this->db->where('h.tanggal_status',date('Y-m-d'));
+			$this->db->order_by('h.id DESC');
+			$this->db->limit(5);
+			return $query = $this->db->get('history as h')->result();
+	}
+
+	public function getKodeUserOrder($id_detail='')
+	{
+		return $this->db->get_where('history', 
+									array('id_detail_order'	 => $id_detail,
+									))->row()->kode_user;
+	}
 }
 
 ?>

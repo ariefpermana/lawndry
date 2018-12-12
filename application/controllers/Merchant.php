@@ -5,6 +5,28 @@
 */
 class Merchant extends MY_Controller
 {
+	protected $_status;
+
+	protected $_data_status;
+
+	function __construct()
+	{
+		parent::__construct();
+
+		$kode = $this->session->userdata('kode');
+
+		//====================Status Order ====================
+		if(!empty($this->Order_m->getStatusHistory($kode)))
+		{
+		 	$tot_status = count($this->Order_m->getStatusHistory($kode)); 
+		 	$data_status = $this->Order_m->getStatusHistory($kode);
+		}else{
+			$tot_status = "0";
+		}
+
+		$this->_data_status = $data_status;
+		$this->_status = $tot_status;
+	}
 	
 	public function profile()
 	{
@@ -58,6 +80,9 @@ class Merchant extends MY_Controller
 
 		$kategori = $this->session->userdata('kategori');
 
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
+
 		if($kategori == '0')
 		{
 			$data['merchant'] = $this->Merchant_m->getMerchant(NULL,$per_page, $offset);
@@ -87,6 +112,8 @@ class Merchant extends MY_Controller
 	public function edit()
 	{
 		if(!$this->session->userdata('id')) redirect('user/login');
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		if($this->session->userdata('uri') != 'profile')
 		{
@@ -240,6 +267,8 @@ class Merchant extends MY_Controller
 		if(!$this->session->userdata('id')) redirect('user/login');
 
 		$data['content'] = 'page/merchant/kiloan';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['kiloan'] = 'active';
 
@@ -282,6 +311,8 @@ class Merchant extends MY_Controller
 		if(!$this->session->userdata('id')) redirect('user/login');
 
 		$data['content'] = 'page/merchant/satuan';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['satuan'] = 'active';
 
@@ -324,6 +355,8 @@ class Merchant extends MY_Controller
 		if(!$this->session->userdata('id')) redirect('user/login');
 
 		$data['content'] = 'page/merchant/add';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data[$this->session->jenis_layanan] = 'active';
 

@@ -5,6 +5,29 @@
 */
 class Order extends MY_Controller
 {
+	protected $_status;
+	protected $_data_status;
+	protected $_kode;
+
+	function __construct()
+	{
+		parent::__construct();
+
+		$kode = $this->session->userdata('kode');
+
+		//====================Status Order ====================
+		if(!empty($this->Order_m->getStatusHistory($kode)))
+		{
+		 	$tot_status = count($this->Order_m->getStatusHistory($kode)); 
+		 	$data_status = $this->Order_m->getStatusHistory($kode);
+		}else{
+			$tot_status = "0";
+		}
+
+		$this->_data_status = $data_status;
+		$this->_status = $tot_status;
+		$this->_kode = $kode;
+	}
 	
 	public function satuan()
 	{
@@ -159,7 +182,19 @@ class Order extends MY_Controller
 
 		$id_pelanggan = $this->session->userdata('kode');
 
-		$data['order_number'] = $id_pelanggan.date('Ymd').rand(1,999);
+		$id_order = $id_pelanggan.date('Ymd').rand(1,999);
+
+		if(count($id_order) == 13)
+		{
+			$id_order = $id_pelanggan.date('Ymd').'0'.rand(1,99);
+
+			if(count($id_order) == 13)
+			{
+				$id_order = $id_pelanggan.date('Ymd').'00'.rand(1,9);
+			}
+		}
+
+		$data['order_number'] = $id_order;
 
 		$data['content'] = 'page/order/checkout';
 
@@ -210,7 +245,21 @@ class Order extends MY_Controller
 							);
 
 				$insert_detail = $this->db->insert('order_detail', $data_detail);
+
+				if($insert_detail == TRUE)
+				{
+					$id_detail = $this->db->insert_id();
+				}
 			}
+
+			$data_history = array(
+								'kode_user'		 	=> $id_pelanggan,
+								'id_detail_order' 	=> $id_detail,
+								'id_status_order' 	=> 1,
+								'tanggal_status'	=> date('Y-m-d')
+							);
+
+			$insert_history = $this->db->insert('history', $data_history);
 
 			if($insert_order == TRUE && $insert_detail == TRUE)
 			{
@@ -234,6 +283,9 @@ class Order extends MY_Controller
 		if(!$this->session->userdata('id')) redirect(base_url());
 
 		$data['content'] = 'page/order/my_orders';
+
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['my_orders'] = 'active';
 
@@ -267,6 +319,9 @@ class Order extends MY_Controller
 
 		$id_order  = $this->uri->segment(3);
 		$id_detail = $this->uri->segment(4);
+
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['id_order'] = $id_order;
 
@@ -302,9 +357,16 @@ class Order extends MY_Controller
 						'id_pembayaran'		=> $id_pembayaran,
 					);
 
+			$data_history = array(
+								'kode_user'		 	=> $this->_kode,
+								'id_detail_order' 	=> $id_detail,
+								'id_status_order' 	=> 9,
+								'tanggal_status'	=> date('Y-m-d')
+							);
 
 			$insert_pembayaran = $this->db->insert('pembayaran', $data);
 			$update_detail = $this->Order_m->updateOrder($data_detail,$id_detail,'detail');
+			$insert_history = $this->db->insert('history', $data_history);
 
 			if($insert_pembayaran == TRUE && $update_detail == TRUE)
 			{
@@ -326,6 +388,8 @@ class Order extends MY_Controller
 		if(!$this->session->userdata('id')) redirect(base_url());
 
 		$data['content'] = 'page/order/detail';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['my_orders'] = 'active';
 
@@ -335,7 +399,7 @@ class Order extends MY_Controller
 		$status = $this->uri->segment(4);
 
 		$data['orders'] = $this->Order_m->getOrders(NULL,'detail', $id_order,$status);
-
+		
 		if($this->input->post('submit') == 'Konfirmasi')
 		{	
 			$id_detail = $this->input->post('id_detail');
@@ -356,6 +420,17 @@ class Order extends MY_Controller
 
 			if($updateStatus == TRUE)
 			{
+				$kode_user_order = $this->Order_m->getKodeUserOrder($id_detail);
+
+				$data_history = array(
+								'kode_user'		 	=> $kode_user_order,
+								'id_detail_order' 	=> $id_detail,
+								'id_status_order' 	=> 3,
+								'tanggal_status'	=> date('Y-m-d')
+							);
+
+				$insert_history = $this->db->insert('history', $data_history);
+
 			 	$this->session->set_flashdata('success', 'Verify Order Success!');
 
 				redirect(base_url('order/my_orders'));
@@ -377,6 +452,17 @@ class Order extends MY_Controller
 
 			if($updateStatus == TRUE)
 			{
+				$kode_user_order = $this->Order_m->getKodeUserOrder($id_detail);
+
+				$data_history = array(
+								'kode_user'		 	=> $kode_user_order,
+								'id_detail_order' 	=> $id_detail,
+								'id_status_order' 	=> 2,
+								'tanggal_status'	=> date('Y-m-d')
+							);
+
+				$insert_history = $this->db->insert('history', $data_history);
+
 			 	$this->session->set_flashdata('success', 'Cancel Order Success!');
 
 				redirect(base_url('order/my_orders'));
@@ -409,6 +495,17 @@ class Order extends MY_Controller
 
 			if($updateStatus == TRUE)
 			{
+				$kode_user_order = $this->Order_m->getKodeUserOrder($id_detail);
+				
+				$data_history = array(
+								'kode_user'		 	=> $kode_user_order,
+								'id_detail_order' 	=> $id_detail,
+								'id_status_order' 	=> 15,
+								'tanggal_status'	=> date('Y-m-d')
+							);
+
+				$insert_history = $this->db->insert('history', $data_history);
+
 			 	//$this->session->set_flashdata('success', 'Update Status Order Success!');
 
 				redirect(base_url('review/isi_review'));
@@ -420,6 +517,8 @@ class Order extends MY_Controller
 
 		}
 
+		
+
 		$this->load->view('layout', $data);
 	}
 
@@ -428,6 +527,8 @@ class Order extends MY_Controller
 		if(!$this->session->userdata('id')) redirect(base_url());
 
 		$data['content'] = 'page/order/edit';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['my_orders'] = 'active';
 
@@ -478,6 +579,8 @@ class Order extends MY_Controller
 		if(!$this->session->userdata('id')) redirect(base_url());
 
 		$data['content'] = 'page/order/order_history';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['order_history'] = 'active';
 
@@ -491,6 +594,8 @@ class Order extends MY_Controller
 		if(!$this->session->userdata('id')) redirect(base_url());
 
 		$data['content'] = 'page/order/verifikasi';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['verifikasi'] = 'active';
 
@@ -506,6 +611,8 @@ class Order extends MY_Controller
 		if(!$this->session->userdata('id')) redirect(base_url());
 
 		$data['content'] = 'page/order/update';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['my_orders'] = 'active';
 
@@ -582,6 +689,17 @@ class Order extends MY_Controller
 
 			if($updateStatus == TRUE)
 			{
+				$kode_user_order = $this->Order_m->getKodeUserOrder($uri);
+				
+				$data_history = array(
+								'kode_user'		 	=> $kode_user_order,
+								'id_detail_order' 	=> $uri,
+								'id_status_order' 	=> $status,
+								'tanggal_status'	=> date('Y-m-d')
+							);
+
+				$insert_history = $this->db->insert('history', $data_history);
+
 			 	$this->session->set_flashdata('success', 'Update Status Order Success!');
 
 				redirect(base_url('order/my_orders'));
@@ -601,6 +719,8 @@ class Order extends MY_Controller
 		if(!$this->session->userdata('id')) redirect(base_url());
 
 		$id_detail = $this->uri->segment(3);
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$verify = $this->Order_m->verifyPembayaran($id_detail);
 
@@ -619,6 +739,8 @@ class Order extends MY_Controller
 	public function delete()
 	{
 		if(!$this->session->userdata('id')) redirect(base_url());
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$uri = $this->uri->segment(3);
 

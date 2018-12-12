@@ -5,12 +5,35 @@
 */
 class Review extends MY_Controller
 {
+	protected $_status;
+	protected $_data_status;
+
+	function __construct()
+	{
+		parent::__construct();
+
+		$kode = $this->session->userdata('kode');
+
+		//====================Status Order ====================
+		if(!empty($this->Order_m->getStatusHistory($kode)))
+		{
+		 	$tot_status = count($this->Order_m->getStatusHistory($kode)); 
+		 	$data_status = $this->Order_m->getStatusHistory($kode);
+		}else{
+			$tot_status = "0";
+		}
+
+		$this->_data_status = $data_status;
+		$this->_status = $tot_status;
+	}
 	
 	public function isi_review()
 	{
 		if(!$this->session->userdata('id')) redirect(base_url());
 
 		$data['content'] = 'page/review/isi_review';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['review'] = 'active';
 
@@ -56,6 +79,8 @@ class Review extends MY_Controller
 		if(!$this->session->userdata('id')) redirect(base_url());
 
 		$data['content'] = 'page/review/history';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$data['history'] = 'active';
 
@@ -71,6 +96,8 @@ class Review extends MY_Controller
 		if(!$this->session->userdata('id')) redirect(base_url());
 
 		$data['content'] = 'page/review/detail';
+		$data['count_status'] = $this->_status;
+		$data['status_history'] = $this->_data_status;
 
 		$id_laundry = $this->uri->segment(3);
 
