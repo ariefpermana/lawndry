@@ -6,7 +6,6 @@
 class Merchant extends MY_Controller
 {
 	protected $_status;
-
 	protected $_data_status;
 
 	function __construct()
@@ -24,7 +23,12 @@ class Merchant extends MY_Controller
 			$tot_status = "0";
 		}
 
-		$this->_data_status = $data_status;
+		if(isset($data_status)){
+			$this->_data_status = $data_status;
+		}else{
+			$this->_data_status = NULL;
+		}
+
 		$this->_status = $tot_status;
 	}
 	
